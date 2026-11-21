@@ -1,0 +1,13 @@
+---
+source: keyvalues-parser/tests/text_parser/mod.rs
+expression: vdf
+---
+PartialVdf {
+    key: "Key",
+    value: Obj({}),
+    bases: [
+        "one_base.res",
+        "../another_base.vdf",
+        "other\\path\\sep.pop",
+    ],
+}

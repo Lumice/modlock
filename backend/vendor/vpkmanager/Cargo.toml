@@ -1,0 +1,13 @@
+[package]
+name="vpkmanager"
+version="0.1.0"
+edition="2024"
+license="GPL-3.0"
+[dependencies]
+thiserror="2"
+byteorder="1"
+bitflags="2"
+bytemuck="1"
+half={version="2",features=["bytemuck"]}
+lz4_flex={version="0.11",default-features=false,features=["std"]}
+ruzstd="0.8.3"

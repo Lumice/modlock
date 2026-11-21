@@ -1,0 +1,17 @@
+[package]
+name = "modlock-helper"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+json = { path = "vendor/json" }
+ttf-parser = { path = "vendor/ttf-parser", default-features = false, features = ["std"] }
+quick-xml = { path = "vendor/quick-xml", default-features = false }
+sha2 = { path = "vendor/sha2", version = "=0.10.9", default-features = false, features = ["force-soft"] }
+
+regex = { path = "vendor/regex" }
+
+health-engine={path="vendor/health-engine"}
+serde_json="1"
+libc="0.2"

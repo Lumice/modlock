@@ -1,0 +1,654 @@
+#![doc = include_str!("../README.md")]
+#![allow(unknown_lints)]
+#![allow(clippy::result_large_err)]
+// TODO: resolve this ^^
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
+use std::{
+    borrow::Cow,
+    collections::{btree_map::IntoIter, BTreeMap},
+    fmt,
+    ops::{Deref, DerefMut},
+};
+
+pub mod error;
+#[cfg(feature = "serde")]
+#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
+mod serde;
+pub mod text;
+
+/// `pest` re-exported for your convenience :)
+pub use pest;
+
+/// Parse a KeyValues document to a loosely typed representation
+///
+/// This is shorthand for parsing a document with default settings aka `Parser::new().parse(text)`
+pub fn parse<'text>(text: &'text str) -> error::Result<PartialVdf<'text>> {
+    Parser::new().parse(text)
+}
+
+/// A configurable KeyValues parser allowing for adjusting settings before parsing
+#[derive(Clone, Debug, Default)]
+pub struct Parser {
+    literal_special_chars: bool,
+}
+
+impl Parser {
+    /// Constructs a default parser
+    ///
+    /// Currently this consists of:
+    ///
+    /// | Toggle | Description |
+    /// | :---: | :--- |
+    /// | [`Parser::literal_special_chars()`] | Whether to interpret `\` in strings as the start of an escaped special character, or a literal `\` |
+    pub const fn new() -> Self {
+        // same as Default, but const 😏
+        Self {
+            literal_special_chars: false,
+        }
+    }
+
+    /// Toggle how to interpret `\` in strings
+    ///
+    /// By default (`false`) the parser will interpret backslashes (`\`) in strings as the start of
+    /// an escaped special character (e.g. `\\` -> `\`, `\"` -> `"`). When `true` the parser will
+    /// instead interpret backslashes (`\`) as a literal backslash. Commonly seen with
+    /// windows-paths, for instance
+    pub const fn literal_special_chars(mut self, yes: bool) -> Self {
+        self.literal_special_chars = yes;
+        self
+    }
+
+    /// Parse a KeyValues document to a loosely typed representation
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use keyvalues_parser::Parser;
+    /// let vdf = Parser::new()
+    ///     .literal_special_chars(true)
+    ///     .parse(r"InstallDir C:\You\Later")
+    ///     .unwrap();
+    /// assert_eq!(vdf.value.unwrap_str(), r"C:\You\Later");
+    /// ```
+    pub fn parse<'text>(&self, vdf: &'text str) -> error::Result<PartialVdf<'text>> {
+        if self.literal_special_chars {
+            #[expect(deprecated)] // deprecated for thee, but not for me!
+            text::parse::raw_parse(vdf)
+        } else {
+            #[expect(deprecated)] // deprecated for thee, but not for me!
+            text::parse::escaped_parse(vdf)
+        }
+    }
+}
+
+/// A Key is simply an alias for `Cow<str>`
+pub type Key<'text> = Cow<'text, str>;
+
+/// A loosely typed representation of VDF text
+///
+/// `Vdf` is represented as a single [`Key`] mapped to a single [`Value`]
+///
+/// ## Parse
+///
+/// `Vdf`s will generally be created through the use of [`parse()`] or [`Parser::parse()`] which
+/// takes a string representing VDF text and attempts to parse it to a `Vdf` representation.
+///
+/// ## Mutate
+///
+/// From there you can manipulate/extract from the representation as desired by using the standard
+/// conventions on the internal types (plain old `BTreeMap`s, `Vec`s, and `Cow`s all the way down)
+///
+/// ## Render
+///
+/// The `Vdf` can also be rendered back to its text form through its `Display` implementation
+///
+/// ## Example
+///
+/// ```
+/// // Parse
+/// let vdf_text = r#"
+/// "Outer Key"
+/// {
+///     "Inner Key" "Inner Value"
+///     "Inner Key"
+///     {
+///     }
+/// }
+/// "#;
+/// let mut parsed = keyvalues_parser::parse(vdf_text)?;
+///
+/// // Mutate: i.e. remove the last "Inner Key" pair
+/// parsed
+///     .value
+///     .get_mut_obj()
+///     .unwrap()
+///     .get_mut("Inner Key")
+///     .unwrap()
+///     .pop();
+///
+/// // Render: prints
+/// // "Outer Key"
+/// // {
+/// //     "Inner Key" "Inner Value"
+/// // }
+/// println!("{}", parsed);
+/// # Ok::<(), keyvalues_parser::error::Error>(())
+/// ```
+#[derive(Clone, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct Vdf<'text> {
+    pub key: Key<'text>,
+    pub value: Value<'text>,
+}
+
+impl<'text> Vdf<'text> {
+    /// Creates a [`Vdf`] using a provided key and value
+    ///
+    /// ```
+    /// use keyvalues_parser::{Vdf, Value};
+    /// use std::borrow::Cow;
+    ///
+    /// let vdf = Vdf::new(Cow::from("Much Key"), Value::Str(Cow::from("Such Wow")));
+    /// // prints
+    /// // "Much Key"  "Such Wow"
+    /// println!("{}", vdf);
+    /// ```
+    pub fn new(key: Key<'text>, value: Value<'text>) -> Self {
+        Self { key, value }
+    }
+
+    /// Converts this [`Vdf`] into a fully owned variant
+    ///
+    /// Internally a [`Vdf`] can reference the underlying text. This changes all of those
+    /// references to be be allocated instead, allowing for easier ownership
+    ///
+    /// ```
+    /// fn expect_owned_vdf(text: &'_ str) -> keyvalues_parser::Vdf<'static> {
+    ///     keyvalues_parser::parse(text).unwrap().into_vdf().into_owned()
+    /// }
+    ///
+    /// let vdf = expect_owned_vdf(
+    ///     r#"foo { bar {} bar "allocates for ownership" }"#
+    /// );
+    /// assert_eq!(
+    ///     vdf.value.unwrap_obj().get("bar").unwrap()[1].get_str().unwrap(),
+    ///     "allocates for ownership",
+    /// );
+    /// ```
+    pub fn into_owned(self) -> Vdf<'static> {
+        let Self { key, value } = self;
+        let key = owned_cow(key);
+        let value = value.into_owned();
+        Vdf { key, value }
+    }
+}
+
+impl<'text> From<PartialVdf<'text>> for Vdf<'text> {
+    fn from(partial: PartialVdf<'text>) -> Self {
+        partial.into_vdf()
+    }
+}
+
+/// A top-level VDF pair containing any top level `#base` directives as well
+///
+/// Obtained by calling [`parse()`] or [`Parser::parse()`]. See [`Vdf`] for the more broad
+/// docs/API
+// TODO: Just store a `Vdf` internally
+#[derive(Clone, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct PartialVdf<'text> {
+    pub key: Key<'text>,
+    pub value: Value<'text>,
+    pub bases: Vec<Cow<'text, str>>,
+}
+
+impl<'text> PartialVdf<'text> {
+    /// Convert a top-level VDF pair into a [`Vdf`], ignoring any `#base` directives
+    ///
+    /// This is equivalent to calling [`Vdf::from<PartialVdf>()`] or `.into()`
+    pub fn into_vdf(self) -> Vdf<'text> {
+        let Self {
+            key,
+            value,
+            bases: _,
+        } = self;
+        Vdf { key, value }
+    }
+
+    /// Converts this [`PartialVdf`] into a fully owned variant
+    ///
+    /// Internally a [`PartialVdf`] can reference the underlying text. This changes all of those
+    /// references to be be allocated instead, allowing for easier ownership
+    pub fn into_owned(self) -> PartialVdf<'static> {
+        let Self { bases, key, value } = self;
+        let bases = bases.into_iter().map(owned_cow).collect();
+        let key = owned_cow(key);
+        let value = value.into_owned();
+        PartialVdf { bases, key, value }
+    }
+}
+
+// TODO: why is this type alias a thing if it's not private but the usage of it inside `Obj` is?
+type ObjInner<'text> = BTreeMap<Key<'text>, Vec<Value<'text>>>;
+type ObjInnerPair<'text> = (Key<'text>, Vec<Value<'text>>);
+
+#[derive(Clone, Default, Hash, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Obj<'text>(pub ObjInner<'text>);
+
+/// A slightly customized multi-map debug impl
+///
+/// Two slight tweaks:
+///
+/// 1. Just show the inner map instead with no `Obj()` wrapping
+/// 2. We're a multi-map where most sequences only have one value. Omit the `[]` in single-value
+///    sequences
+impl fmt::Debug for Obj<'_> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut map_f = f.debug_map();
+        for (k, v) in &self.0 {
+            map_f.key(k);
+            match v.as_slice() {
+                [single] => _ = map_f.value(single),
+                _ => _ = map_f.value(v),
+            }
+        }
+        map_f.finish()
+    }
+}
+
+impl<'text> Obj<'text> {
+    /// Creates an empty object value
+    ///
+    /// Internally This is just a [`BTreeMap`] that maps [`Key`]s to a [`Vec`] of [`Value`]s
+    ///
+    /// ```
+    /// # use keyvalues_parser::{Obj, Value};
+    /// # use std::borrow::Cow;
+    /// let mut obj = Obj::new();
+    /// obj.insert(
+    ///     Cow::from("key"),
+    ///     vec![]
+    /// );
+    /// obj.insert(
+    ///     Cow::from("earlier key"),
+    ///     vec![Value::Obj(Obj::default())]
+    /// );
+    ///
+    /// // It's a b-tree map so the entries are sorted by keys
+    /// assert_eq!(
+    ///     obj.keys().collect::<Vec<_>>(),
+    ///     ["earlier key", "key"]
+    /// );
+    /// ```
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Returns the inner [`BTreeMap`]
+    ///
+    /// ```
+    /// # use keyvalues_parser::{Obj, Value};
+    /// # use std::{borrow::Cow, collections::BTreeMap};
+    /// let mut obj = Obj::new();
+    /// obj.insert(Cow::from("much key"), vec![]);
+    ///
+    /// let inner: BTreeMap<_, _> = obj.into_inner();
+    /// // Prints:
+    /// // {
+    /// //     "much key": [],
+    /// // }
+    /// println!("{:#?}", inner);
+    /// ```
+    pub fn into_inner(self) -> ObjInner<'text> {
+        self.0
+    }
+
+    /// Converts this [`Obj`] into a fully owned variant
+    ///
+    /// Internally a [`Obj`] can reference the underlying text. This changes all of those
+    /// references to be be allocated instead, allowing for easier ownership
+    pub fn into_owned(self) -> Obj<'static> {
+        let Self(obj) = self;
+        Obj(obj
+            .into_iter()
+            .map(|(k, v)| (owned_cow(k), v.into_iter().map(Value::into_owned).collect()))
+            .collect())
+    }
+
+    /// Creates an iterator that returns the [`Vdf`]s that compose the object
+    ///
+    /// This is notably different compared to just iterating over the `BTreeMap`s items because it
+    /// will emit a [`Vdf`] for each key-value pair while the actual items are key-values pairs.
+    /// This means that empty values will not emit a [`Vdf`] at all, and a pair that has multiple
+    /// entries in values will emit a [`Vdf`] for each pairing
+    ///
+    /// ```
+    /// # use keyvalues_parser::{Obj, Value, Vdf};
+    /// # use std::borrow::Cow;
+    /// let mut obj = Obj::new();
+    /// obj.insert(
+    ///     Cow::from("no values"),
+    ///     vec![]
+    /// );
+    /// obj.insert(
+    ///     Cow::from("multiple values"),
+    ///     vec![Value::Str(Cow::from("first")), Value::Str(Cow::from("second"))]
+    /// );
+    ///
+    /// let vdfs: Vec<_> = obj.into_vdfs().collect();
+    /// assert_eq!(
+    ///     vdfs,
+    ///     [
+    ///         Vdf {
+    ///             key: Cow::from("multiple values"),
+    ///             value: Value::Str(Cow::from("first"))
+    ///         },
+    ///         Vdf {
+    ///             key: Cow::from("multiple values"),
+    ///             value: Value::Str(Cow::from("second"))
+    ///         },
+    ///     ]
+    /// );
+    /// ```
+    pub fn into_vdfs(self) -> IntoVdfs<'text> {
+        IntoVdfs::new(self)
+    }
+}
+
+impl<'text> FromIterator<ObjInnerPair<'text>> for Obj<'text> {
+    fn from_iter<T: IntoIterator<Item = ObjInnerPair<'text>>>(iter: T) -> Self {
+        let mut inner = BTreeMap::new();
+        for (key, values) in iter {
+            inner.insert(key, values);
+        }
+
+        Self(inner)
+    }
+}
+
+impl<'text> Deref for Obj<'text> {
+    type Target = ObjInner<'text>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl DerefMut for Obj<'_> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+/// An iterator over an [`Obj`]'s [`Vdf`] pairs
+///
+/// Typically created by calling [`Obj::into_vdfs`] on an existing object
+pub struct IntoVdfs<'text> {
+    // TODO: can this just store an iterator for the values instead of `.collect()`ing
+    current_entry: Option<ObjInnerPair<'text>>,
+    it: IntoIter<Key<'text>, Vec<Value<'text>>>,
+}
+
+impl<'text> IntoVdfs<'text> {
+    fn new(obj: Obj<'text>) -> Self {
+        Self {
+            current_entry: None,
+            it: obj.into_inner().into_iter(),
+        }
+    }
+}
+
+impl<'text> Iterator for IntoVdfs<'text> {
+    type Item = Vdf<'text>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        // Iteration will pop the first pair off `current_entry` if it's set and then falls back to
+        // reading in a new `current_entry` from `it`. If `it` is exhausted then we're done
+        loop {
+            match self.current_entry.take() {
+                // There is a pair to return
+                Some((key, mut values)) if !values.is_empty() => {
+                    let value = values.pop().expect("values isn't empty");
+                    self.current_entry = Some((key.clone(), values));
+                    return Some(Vdf::new(key, value));
+                }
+                _ => {
+                    let (key, values) = self.it.next()?;
+                    // Store the next entry. Flip the values so that `pop`ing returns correct order
+                    self.current_entry = Some((key, values.into_iter().rev().collect()));
+                }
+            }
+        }
+    }
+}
+
+// TODO: custom Debug that's more succinct
+/// Enum representing all valid VDF values
+///
+/// VDF is composed of [`Key`]s and their respective [`Value`]s where this represents the latter. A
+/// value is either going to be a `Str(Cow<str>)`, or an `Obj(Obj)` that contains a list of keys
+/// and values.
+///
+/// ```
+/// # use keyvalues_parser::{Obj, Value};
+/// # use std::borrow::Cow;
+/// let value_str = Value::Str(Cow::from("some text"));
+/// let value_obj = Value::Obj(Obj::new());
+/// ```
+#[derive(Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub enum Value<'text> {
+    Str(Cow<'text, str>),
+    Obj(Obj<'text>),
+}
+
+impl<'text> Value<'text> {
+    /// Converts this [`Vdf`] into a fully owned variant
+    ///
+    /// Internally a [`Vdf`] can reference the underlying text. This changes all of those
+    /// references to be be allocated instead, allowing for easier ownership
+    pub fn into_owned(self) -> Value<'static> {
+        match self {
+            Self::Str(s) => Value::Str(owned_cow(s)),
+            Self::Obj(o) => Value::Obj(o.into_owned()),
+        }
+    }
+}
+
+impl fmt::Debug for Value<'_> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Str(s) => {
+                f.write_str("Str(")?;
+                fmt::Debug::fmt(s, f)?;
+                f.write_str(")")
+            }
+            Self::Obj(o) => {
+                f.write_str("Obj(")?;
+                fmt::Debug::fmt(o, f)?;
+                f.write_str(")")
+            }
+        }
+    }
+}
+
+impl<'text> Value<'text> {
+    /// Returns if the current value is the `Str` variant
+    ///
+    /// ```
+    /// use std::borrow::Cow;
+    /// use keyvalues_parser::{Obj, Value};
+    ///
+    /// let value_str = Value::Str(Cow::default());
+    /// assert!(value_str.is_str());
+    /// ```
+    pub fn is_str(&self) -> bool {
+        self.get_str().is_some()
+    }
+
+    /// Returns if the current value is the `Obj` variant
+    ///
+    /// ```
+    /// use keyvalues_parser::{Obj, Value};
+    ///
+    /// let value_obj = Value::Obj(Obj::default());
+    /// assert!(value_obj.is_obj());
+    /// ```
+    pub fn is_obj(&self) -> bool {
+        self.get_obj().is_some()
+    }
+
+    /// Gets the inner `&str` if this is a `Value::Str`
+    ///
+    /// ```
+    /// # use keyvalues_parser::Value;
+    /// # use std::borrow::Cow;
+    /// let value = Value::Str(Cow::from("some text"));
+    ///
+    /// if let Some(s) = value.get_str() {
+    ///     println!("value str: {}", s);
+    /// }
+    /// ```
+    pub fn get_str(&self) -> Option<&str> {
+        if let Self::Str(s) = self {
+            Some(s)
+        } else {
+            None
+        }
+    }
+
+    /// Gets the inner `&Obj` if this value is a `Value::Obj`
+    ///
+    /// ```
+    /// # use keyvalues_parser::{Obj, Value};
+    /// let value = Value::Obj(Obj::new());
+    ///
+    /// if let Some(obj) = value.get_obj() {
+    ///     println!("value obj: {:?}", obj);
+    /// }
+    /// ```
+    pub fn get_obj(&self) -> Option<&Obj<'_>> {
+        if let Self::Obj(obj) = self {
+            Some(obj)
+        } else {
+            None
+        }
+    }
+
+    /// Gets the inner `&mut str` if this is a `Value::Str`
+    ///
+    /// ```
+    /// # use keyvalues_parser::Value;
+    /// # use std::borrow::Cow;
+    /// let mut value = Value::Str(Cow::from("some text"));
+    /// let mut inner_str = value.get_mut_str().unwrap();
+    /// inner_str.to_mut().make_ascii_uppercase();
+    ///
+    /// assert_eq!(
+    ///     value,
+    ///     Value::Str(Cow::from("SOME TEXT"))
+    /// );
+    /// ```
+    pub fn get_mut_str(&mut self) -> Option<&mut Cow<'text, str>> {
+        if let Self::Str(s) = self {
+            Some(s)
+        } else {
+            None
+        }
+    }
+
+    /// Gets the inner `&mut Obj` if this is a `Value::Obj`
+    ///
+    /// ```
+    /// # use keyvalues_parser::{Obj, Value};
+    /// # use std::borrow::Cow;
+    /// let mut value = Value::Obj(Obj::new());
+    /// let mut inner_obj = value.get_mut_obj().unwrap();
+    /// inner_obj.insert(Cow::from("new key"), vec![]);
+    ///
+    /// // Prints:
+    /// // Value::Obj({
+    /// //    "new key": [],
+    /// // })
+    /// println!("{:?}", value);
+    /// ```
+    pub fn get_mut_obj(&mut self) -> Option<&mut Obj<'text>> {
+        if let Self::Obj(obj) = self {
+            Some(obj)
+        } else {
+            None
+        }
+    }
+
+    /// Unwraps the `Cow<str>` from the `Value::Str`
+    ///
+    /// # Panics
+    ///
+    /// If the variant was `Value::Obj`
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use keyvalues_parser::Value;
+    /// use std::borrow::Cow;
+    ///
+    /// let value = Value::Str(Cow::from("Sample text"));
+    /// assert_eq!(value.unwrap_str(), "Sample text");
+    /// ```
+    ///
+    /// ```should_panic
+    /// use keyvalues_parser::{Value, Obj};
+    ///
+    /// let value = Value::Obj(Obj::new());
+    /// value.unwrap_str(); // <-- panics
+    /// ```
+    pub fn unwrap_str(self) -> Cow<'text, str> {
+        self.expect_str("Called `unwrap_str` on a `Value::Obj` variant")
+    }
+
+    /// Unwraps the [`Obj`] from the `Value::Obj`
+    ///
+    /// # Panics
+    ///
+    /// If the variant was `Value::Str`
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use keyvalues_parser::{Obj, Value};
+    ///
+    /// let value = Value::Obj(Obj::new());
+    /// assert_eq!(value.unwrap_obj(), Obj::new());
+    /// ```
+    ///
+    /// ```should_panic
+    /// use keyvalues_parser::Value;
+    /// use std::borrow::Cow;
+    ///
+    /// let value = Value::Str(Cow::from("D'Oh"));
+    /// value.unwrap_obj(); // <-- panics
+    /// ```
+    pub fn unwrap_obj(self) -> Obj<'text> {
+        self.expect_obj("Called `unwrap_obj` on a `Value::Str` variant")
+    }
+
+    /// Refer to [Value::unwrap_str]. Same situation, but with a custom message
+    pub fn expect_str(self, msg: &str) -> Cow<'text, str> {
+        if let Self::Str(s) = self {
+            s
+        } else {
+            panic!("{}", msg)
+        }
+    }
+
+    /// Refer to [Value::unwrap_obj]. Same situation, but with a custom message
+    pub fn expect_obj(self, msg: &str) -> Obj<'text> {
+        if let Self::Obj(obj) = self {
+            obj
+        } else {
+            panic!("{}", msg)
+        }
+    }
+}
+
+fn owned_cow(s: Cow<'_, str>) -> Cow<'static, str> {
+    Cow::Owned(s.into_owned())
+}

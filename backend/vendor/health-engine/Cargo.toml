@@ -1,0 +1,15 @@
+[package]
+name="health-engine"
+version="0.1.0"
+edition="2024"
+license="GPL-3.0"
+[dependencies]
+vpkmanager={path="../vpkmanager"}
+source2-model={path="../source2-model"}
+vpk-parser={path="../vpk-parser"}
+serde={version="1",features=["derive"]}
+serde_json="1"
+sha2="0.10"
+thiserror="2"
+keyvalues-parser="0.2"
+log="0.4"

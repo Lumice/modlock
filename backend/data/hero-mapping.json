@@ -1,0 +1,357 @@
+[
+  {
+    "internal": "abrams",
+    "key": "Abrams",
+    "display": "Abrams"
+  },
+  {
+    "internal": "artist",
+    "key": "Violet",
+    "display": "Violet"
+  },
+  {
+    "internal": "baba",
+    "key": "Baba",
+    "display": "Baba"
+  },
+  {
+    "internal": "bookworm",
+    "key": "Paige",
+    "display": "Paige"
+  },
+  {
+    "internal": "chessmaster",
+    "key": "Solomon",
+    "display": "Solomon"
+  },
+  {
+    "internal": "deadpack",
+    "key": "DeadmanDanny",
+    "display": "Deadman Danny"
+  },
+  {
+    "internal": "doorman",
+    "key": "Doorman",
+    "display": "Doorman"
+  },
+  {
+    "internal": "doorman_v2",
+    "key": "Doorman",
+    "display": "Doorman"
+  },
+  {
+    "internal": "drifter",
+    "key": "Drifter",
+    "display": "Drifter"
+  },
+  {
+    "internal": "dynamo",
+    "key": "Dynamo",
+    "display": "Dynamo"
+  },
+  {
+    "internal": "familiar",
+    "key": "Rem",
+    "display": "Rem"
+  },
+  {
+    "internal": "fencer",
+    "key": "Apollo",
+    "display": "Apollo"
+  },
+  {
+    "internal": "frank",
+    "key": "Victor",
+    "display": "Victor"
+  },
+  {
+    "internal": "frank_v2",
+    "key": "Victor",
+    "display": "Victor"
+  },
+  {
+    "internal": "geist",
+    "key": "LadyGeist",
+    "display": "Lady Geist"
+  },
+  {
+    "internal": "haze",
+    "key": "Haze",
+    "display": "Haze"
+  },
+  {
+    "internal": "inferno",
+    "key": "Infernus",
+    "display": "Infernus"
+  },
+  {
+    "internal": "ivy",
+    "key": "Ivy",
+    "display": "Ivy"
+  },
+  {
+    "internal": "lash",
+    "key": "Lash",
+    "display": "Lash"
+  },
+  {
+    "internal": "mcginnis",
+    "key": "McGinnis",
+    "display": "McGinnis"
+  },
+  {
+    "internal": "necro",
+    "key": "Graves",
+    "display": "Graves"
+  },
+  {
+    "internal": "nurse",
+    "key": "NurseHarrow",
+    "display": "Nurse Harrow"
+  },
+  {
+    "internal": "pocket",
+    "key": "Pocket",
+    "display": "Pocket"
+  },
+  {
+    "internal": "priest",
+    "key": "Venator",
+    "display": "Venator"
+  },
+  {
+    "internal": "punkgoat",
+    "key": "Billy",
+    "display": "Billy"
+  },
+  {
+    "internal": "ratking",
+    "key": "RatKing",
+    "display": "Rat King"
+  },
+  {
+    "internal": "unicorn",
+    "key": "Celeste",
+    "display": "Celeste"
+  },
+  {
+    "internal": "vampirebat",
+    "key": "Mina",
+    "display": "Mina"
+  },
+  {
+    "internal": "werewolf",
+    "key": "Silver",
+    "display": "Silver"
+  },
+  {
+    "internal": "wraith",
+    "key": "Wraith",
+    "display": "Wraith"
+  },
+  {
+    "internal": "yamato",
+    "key": "Yamato",
+    "display": "Yamato"
+  },
+  {
+    "internal": "archer",
+    "key": "GreyTalon",
+    "display": "Grey Talon"
+  },
+  {
+    "internal": "archer_v2",
+    "key": "GreyTalon",
+    "display": "Grey Talon"
+  },
+  {
+    "internal": "astro",
+    "key": "Holliday",
+    "display": "Holliday"
+  },
+  {
+    "internal": "atlas_detective",
+    "key": "Abrams",
+    "display": "Abrams"
+  },
+  {
+    "internal": "atlas_detective_v2",
+    "key": "Abrams",
+    "display": "Abrams"
+  },
+  {
+    "internal": "bebop",
+    "key": "Bebop",
+    "display": "Bebop"
+  },
+  {
+    "internal": "butcher",
+    "key": "Wrecker",
+    "display": "Wrecker"
+  },
+  {
+    "internal": "chrono",
+    "key": "Paradox",
+    "display": "Paradox"
+  },
+  {
+    "internal": "digger",
+    "key": "MoKrill",
+    "display": "Mo & Krill"
+  },
+  {
+    "internal": "engineer",
+    "key": "McGinnis",
+    "display": "McGinnis"
+  },
+  {
+    "internal": "ghost",
+    "key": "LadyGeist",
+    "display": "Lady Geist"
+  },
+  {
+    "internal": "gigawatt",
+    "key": "Seven",
+    "display": "Seven"
+  },
+  {
+    "internal": "gigawatt_prisoner",
+    "key": "Seven",
+    "display": "Seven"
+  },
+  {
+    "internal": "grey_talon",
+    "key": "GreyTalon",
+    "display": "Grey Talon"
+  },
+  {
+    "internal": "haze_v2",
+    "key": "Haze",
+    "display": "Haze"
+  },
+  {
+    "internal": "hornet_v3",
+    "key": "Vindicta",
+    "display": "Vindicta"
+  },
+  {
+    "internal": "inferno_v4",
+    "key": "Infernus",
+    "display": "Infernus"
+  },
+  {
+    "internal": "kelvin",
+    "key": "Kelvin",
+    "display": "Kelvin"
+  },
+  {
+    "internal": "kelvin_explorer",
+    "key": "Kelvin",
+    "display": "Kelvin"
+  },
+  {
+    "internal": "kelvin_v2",
+    "key": "Kelvin",
+    "display": "Kelvin"
+  },
+  {
+    "internal": "lash_v2",
+    "key": "Lash",
+    "display": "Lash"
+  },
+  {
+    "internal": "magician",
+    "key": "Sinclair",
+    "display": "Sinclair"
+  },
+  {
+    "internal": "magician_v2",
+    "key": "Sinclair",
+    "display": "Sinclair"
+  },
+  {
+    "internal": "mirage",
+    "key": "Mirage",
+    "display": "Mirage"
+  },
+  {
+    "internal": "mirage_v2",
+    "key": "Mirage",
+    "display": "Mirage"
+  },
+  {
+    "internal": "nano",
+    "key": "Calico",
+    "display": "Calico"
+  },
+  {
+    "internal": "prof_dynamo",
+    "key": "Dynamo",
+    "display": "Dynamo"
+  },
+  {
+    "internal": "shiv",
+    "key": "Shiv",
+    "display": "Shiv"
+  },
+  {
+    "internal": "shiv_ult",
+    "key": "Shiv",
+    "display": "Shiv"
+  },
+  {
+    "internal": "synth",
+    "key": "Pocket",
+    "display": "Pocket"
+  },
+  {
+    "internal": "tengu",
+    "key": "Ivy",
+    "display": "Ivy"
+  },
+  {
+    "internal": "vindicta",
+    "key": "Vindicta",
+    "display": "Vindicta"
+  },
+  {
+    "internal": "viper",
+    "key": "Vyper",
+    "display": "Vyper"
+  },
+  {
+    "internal": "viscous",
+    "key": "Viscous",
+    "display": "Viscous"
+  },
+  {
+    "internal": "warden",
+    "key": "Warden",
+    "display": "Warden"
+  },
+  {
+    "internal": "wraith_gen_man",
+    "key": "Wraith",
+    "display": "Wraith"
+  },
+  {
+    "internal": "wraith_magician",
+    "key": "Wraith",
+    "display": "Wraith"
+  },
+  {
+    "internal": "wraith_puppeteer",
+    "key": "Wraith",
+    "display": "Wraith"
+  },
+  {
+    "internal": "wrecker",
+    "key": "Wrecker",
+    "display": "Wrecker"
+  },
+  {
+    "internal": "yamato_v2",
+    "key": "Yamato",
+    "display": "Yamato"
+  }
+]

@@ -1,0 +1,31 @@
+# Software-only, path-vendored manifest adaptation; see Cargo.toml.upstream and ../metadata-sha256/MANIFEST-ADAPTATIONS.md.
+[package]
+name = "digest"
+description = "Traits for cryptographic hash functions and message authentication codes"
+version = "0.10.7"
+authors = ["RustCrypto Developers"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+edition = "2018"
+documentation = "https://docs.rs/digest"
+repository = "https://github.com/RustCrypto/traits"
+keywords = ["digest", "crypto", "hash"]
+categories = ["cryptography", "no-std"]
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+crypto-common = { path = "../crypto-common", version = "=0.1.6" }
+block-buffer = { path = "../block-buffer", version = "=0.10.4", optional = true }
+
+[features]
+default = ["core-api"]
+core-api = ["block-buffer"]
+alloc = []
+std = ["alloc", "crypto-common/std"]
+
+# Recognize unchanged upstream cfgs without exposing removed optional APIs.
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(feature, values("dev", "mac", "oid", "rand_core"))'] }

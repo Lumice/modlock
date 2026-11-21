@@ -1,0 +1,40 @@
+[package]
+name = "keyvalues-parser"
+version = "0.2.4"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+rust-version = "1.81.0"
+
+authors = ["Cosmic <CosmicHorrorDev@pm.me>"]
+keywords = ["keyvalues", "vdf", "steam", "parser"]
+categories.workspace = true
+description = "A parser/renderer for vdf text"
+homepage = "https://codeberg.org/CosmicHarper/vdf-rs/src/branch/main/keyvalues-parser"
+repository.workspace = true
+# benchmarking uses larger assets that end-users dont need
+exclude = ["benches"]
+
+[dependencies]
+pest = "2.7"
+
+[dependencies.serde_core]
+workspace = true
+optional = true
+
+[dev-dependencies]
+divan.workspace = true
+insta.workspace = true
+pretty_assertions.workspace = true
+serde.workspace = true
+
+[features]
+# implement serde traits for some of the VDF types
+serde = ["dep:serde_core"]
+
+[[bench]]
+name = "parser"
+harness = false
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]

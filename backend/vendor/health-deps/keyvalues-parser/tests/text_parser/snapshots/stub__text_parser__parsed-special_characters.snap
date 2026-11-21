@@ -1,0 +1,13 @@
+---
+source: keyvalues-parser/tests/text_parser/mod.rs
+expression: vdf
+---
+Vdf {
+    key: "Outer Key",
+    value: Obj({
+        "Escaped Characters": Str("\n\r\t\"\\"),
+        "Mixed": Str("\n\t\n\t\n\t\\\""),
+        "Raw Newline": Str("\n"),
+        "Raw Tab": Str("\t"),
+    }),
+}

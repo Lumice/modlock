@@ -1,0 +1,352 @@
+{
+  "repository": "https://github.com/harfbuzz/ttf-parser",
+  "tag": "v0.24.1",
+  "tree": "dd0dcf1fd18d208414377e327c39b56f84c8778d",
+  "files": [
+    {
+      "path": "Cargo.toml",
+      "sha": "2bd4282660cb2f052887435a9fcb5cd5d34b6391",
+      "size": 1965
+    },
+    {
+      "path": "LICENSE-APACHE",
+      "sha": "16fe87b06e802f094b3fbb0894b137bca2b16ef1",
+      "size": 10847
+    },
+    {
+      "path": "LICENSE-MIT",
+      "sha": "30d095e047127291058764d9d90c1f629c482fef",
+      "size": 1061
+    },
+    {
+      "path": "README.md",
+      "sha": "7e280d2d2ba66192af899ccfd4b3617251d6acb5",
+      "size": 11991
+    },
+    {
+      "path": "src/aat.rs",
+      "sha": "30dddbb9686a4172678d3d355bbddc4d6c730a02",
+      "size": 17533
+    },
+    {
+      "path": "src/delta_set.rs",
+      "sha": "c63cb8996c0955068663134ce9f1db84ae53f15b",
+      "size": 1451
+    },
+    {
+      "path": "src/ggg/chained_context.rs",
+      "sha": "477ce0c137d78994e97d4067f42d0d1056d16f80",
+      "size": 5501
+    },
+    {
+      "path": "src/ggg/context.rs",
+      "sha": "7d5d6a6d5b4de6d4b42b35aa8b9a8fb157525049",
+      "size": 4134
+    },
+    {
+      "path": "src/ggg/feature_variations.rs",
+      "sha": "c959e47ff27ac268cad9acc1757c065d03313633",
+      "size": 5415
+    },
+    {
+      "path": "src/ggg/layout_table.rs",
+      "sha": "1eb6a072133f3e7aea968518f9fcd530777438fa",
+      "size": 8582
+    },
+    {
+      "path": "src/ggg/lookup.rs",
+      "sha": "c78457b52523694d870bee169182a5c21d24721a",
+      "size": 4865
+    },
+    {
+      "path": "src/ggg/mod.rs",
+      "sha": "8c6bd6a4a6da7ed1bf5ed70d285173d0620721e2",
+      "size": 5004
+    },
+    {
+      "path": "src/language.rs",
+      "sha": "e03dbf8facb5307f9047084d90b1fa9b16240229",
+      "size": 19843
+    },
+    {
+      "path": "src/lib.rs",
+      "sha": "dcac033a621a822ff02d49909d9cb67d4577d3ed",
+      "size": 79804
+    },
+    {
+      "path": "src/parser.rs",
+      "sha": "e0ff43ff45565b584ba91743ad7ab73772307d54",
+      "size": 22915
+    },
+    {
+      "path": "src/tables/ankr.rs",
+      "sha": "c0a16b6cbd89794d8275d2475f5c6d0db0546f42",
+      "size": 2641
+    },
+    {
+      "path": "src/tables/avar.rs",
+      "sha": "3925811096b3103da4c0203d60ecc45c07b3e3a7",
+      "size": 4826
+    },
+    {
+      "path": "src/tables/cbdt.rs",
+      "sha": "eb66bd0b1afd7cac0fc22613b3b714ae979e02e0",
+      "size": 5489
+    },
+    {
+      "path": "src/tables/cblc.rs",
+      "sha": "3208b244e893ed9620a7676142aeee7535a07120",
+      "size": 9218
+    },
+    {
+      "path": "src/tables/cff/argstack.rs",
+      "sha": "5dc7ea43fccdda786e3b8b717dac518ad1a98834",
+      "size": 1360
+    },
+    {
+      "path": "src/tables/cff/cff1.rs",
+      "sha": "428884b3093b488fd2f2ed2c6404af9c005f71e4",
+      "size": 34932
+    },
+    {
+      "path": "src/tables/cff/cff2.rs",
+      "sha": "acb9b90bc83a2a860f23a65e8a60e40fc5d0672f",
+      "size": 18585
+    },
+    {
+      "path": "src/tables/cff/charset.rs",
+      "sha": "e1b471cc899254709d0fd2b5c9da157bbaf2c2eb",
+      "size": 8331
+    },
+    {
+      "path": "src/tables/cff/charstring.rs",
+      "sha": "483cb1f9391e2fdd416ccb5763434a107992c30f",
+      "size": 17483
+    },
+    {
+      "path": "src/tables/cff/dict.rs",
+      "sha": "59782b50aa80ba221edaa8390d79438195f8549a",
+      "size": 8530
+    },
+    {
+      "path": "src/tables/cff/encoding.rs",
+      "sha": "00aa528d0382ebb05bf594cc3db65ff26cb73c53",
+      "size": 5931
+    },
+    {
+      "path": "src/tables/cff/index.rs",
+      "sha": "67a8bf2b6f06c545bb0b74adbc90af31ff1209e8",
+      "size": 5565
+    },
+    {
+      "path": "src/tables/cff/mod.rs",
+      "sha": "a88738c85472c6a0e75220a09651166e9b1c8f14",
+      "size": 3157
+    },
+    {
+      "path": "src/tables/cff/std_names.rs",
+      "sha": "4471d82aea655c3a33df93de42c150634c062ddb",
+      "size": 6222
+    },
+    {
+      "path": "src/tables/cmap/format0.rs",
+      "sha": "124db4d9f254463e504a6c7ee825d2553e25b0ec",
+      "size": 1720
+    },
+    {
+      "path": "src/tables/cmap/format10.rs",
+      "sha": "bcfb75c5e3bbfa6fa2d5597e7c1cd56ed1099b1d",
+      "size": 1464
+    },
+    {
+      "path": "src/tables/cmap/format12.rs",
+      "sha": "861349548313ca8f4cef6492129ff7fc60113505",
+      "size": 2392
+    },
+    {
+      "path": "src/tables/cmap/format13.rs",
+      "sha": "2ba3cdced7462a7a26b69a8c01453b5590f62b8a",
+      "size": 1794
+    },
+    {
+      "path": "src/tables/cmap/format14.rs",
+      "sha": "a99ca00fe01f37cfa5c8dedb15d08aa7b1a93156",
+      "size": 4252
+    },
+    {
+      "path": "src/tables/cmap/format2.rs",
+      "sha": "7225ed2d3d395cd75d14eb1d79969310c9f71f87",
+      "size": 5546
+    },
+    {
+      "path": "src/tables/cmap/format4.rs",
+      "sha": "d1d432b20e7398d2773ae5c5bccf1098d3dd4b0d",
+      "size": 4338
+    },
+    {
+      "path": "src/tables/cmap/format6.rs",
+      "sha": "65399cd8601d143fc04650b4e4a1f92abd398010",
+      "size": 1672
+    },
+    {
+      "path": "src/tables/cmap/mod.rs",
+      "sha": "4315c58f7f869a66a32dff9b0b348b0e966c3930",
+      "size": 9900
+    },
+    {
+      "path": "src/tables/colr.rs",
+      "sha": "83b4e53223d9e1cd183348bda908e01237e75f04",
+      "size": 65503
+    },
+    {
+      "path": "src/tables/cpal.rs",
+      "sha": "308c9695704fcb09f7d8ecb8ad676394a5d5336e",
+      "size": 2423
+    },
+    {
+      "path": "src/tables/feat.rs",
+      "sha": "879c83b968ff42b1f4f234443bad1e907ba04439",
+      "size": 5115
+    },
+    {
+      "path": "src/tables/fvar.rs",
+      "sha": "1e8d17e9fcc52a301977efef9d1c9a52975f349d",
+      "size": 3044
+    },
+    {
+      "path": "src/tables/gdef.rs",
+      "sha": "55be2b96519280b0a79a1d41c42b509076b13fb7",
+      "size": 6810
+    },
+    {
+      "path": "src/tables/glyf.rs",
+      "sha": "f9df2d1744746f802e43203b08c5a8bee5614e41",
+      "size": 20604
+    },
+    {
+      "path": "src/tables/gpos.rs",
+      "sha": "ab19d4a0b7ee1b4682c5d39657d185fdd13d823d",
+      "size": 31770
+    },
+    {
+      "path": "src/tables/gsub.rs",
+      "sha": "60d018961074c26a1a52d74b88069319e9ea974a",
+      "size": 9920
+    },
+    {
+      "path": "src/tables/gvar.rs",
+      "sha": "d0a17f54f463c356d555fa3f66faee81198c7555",
+      "size": 63344
+    },
+    {
+      "path": "src/tables/head.rs",
+      "sha": "3098eafefdb6b9711e2097ad8b6eef7b5d6be421",
+      "size": 2514
+    },
+    {
+      "path": "src/tables/hhea.rs",
+      "sha": "21a5d6c1139682a30e3560f384f41391c0559598",
+      "size": 1233
+    },
+    {
+      "path": "src/tables/hmtx.rs",
+      "sha": "de3eaa9b5863fe286b39ca2e00a202d6fa5a3da0",
+      "size": 3856
+    },
+    {
+      "path": "src/tables/hvar.rs",
+      "sha": "c44b3f954cbeff566f89d340a2d9a56a4437ecec",
+      "size": 3523
+    },
+    {
+      "path": "src/tables/kern.rs",
+      "sha": "2296614910ed30807f3d22b691554cf92f947e45",
+      "size": 15216
+    },
+    {
+      "path": "src/tables/kerx.rs",
+      "sha": "7b02a5e6ebe44a60aa805ecb569bdf4400856ef0",
+      "size": 16143
+    },
+    {
+      "path": "src/tables/loca.rs",
+      "sha": "e33935584dcfb0a118775a770ee284add2333b5f",
+      "size": 3470
+    },
+    {
+      "path": "src/tables/math.rs",
+      "sha": "bbce7032c1fe477c5f0a102a749dfb722df72586",
+      "size": 32635
+    },
+    {
+      "path": "src/tables/maxp.rs",
+      "sha": "e1949c8b6551b0bdf55cdbd31832cad23358721b",
+      "size": 817
+    },
+    {
+      "path": "src/tables/mod.rs",
+      "sha": "d00548c4b0c35f3c01b4524d8ca767a22764c9b5",
+      "size": 1102
+    },
+    {
+      "path": "src/tables/morx.rs",
+      "sha": "c90489aeceba29201861cc4de414005e1c007b8c",
+      "size": 14240
+    },
+    {
+      "path": "src/tables/mvar.rs",
+      "sha": "6e4ad0f4b677dcf9d9825f67974f9d369f24c332",
+      "size": 2412
+    },
+    {
+      "path": "src/tables/name.rs",
+      "sha": "6726043fc28696f1f44ffe4b7891af547175720b",
+      "size": 9686
+    },
+    {
+      "path": "src/tables/os2.rs",
+      "sha": "35e09db7017939fbfd1eee40c7b71b0eaedb530f",
+      "size": 18186
+    },
+    {
+      "path": "src/tables/post.rs",
+      "sha": "2b487a11fc37c3ac5619cb488b7b94688f898f16",
+      "size": 8999
+    },
+    {
+      "path": "src/tables/sbix.rs",
+      "sha": "aaf09e7b635fcc757ea2f1c08fd35c3aef3bbf89",
+      "size": 7531
+    },
+    {
+      "path": "src/tables/svg.rs",
+      "sha": "f2a99f8d820552c750ab487c6b55bf5d38a2f1a4",
+      "size": 4975
+    },
+    {
+      "path": "src/tables/trak.rs",
+      "sha": "709409402d4277214d7ab5ab1e72ce7828695d1d",
+      "size": 4747
+    },
+    {
+      "path": "src/tables/vhea.rs",
+      "sha": "fca5d89774bf72bfcd32f4350df31927cdbee518",
+      "size": 1238
+    },
+    {
+      "path": "src/tables/vorg.rs",
+      "sha": "85dcbd7ce515282ed7f545aef1f7b89ab9810cbc",
+      "size": 1889
+    },
+    {
+      "path": "src/tables/vvar.rs",
+      "sha": "2f67620ef0475c61d88a81d68c46e75fc93822a0",
+      "size": 3998
+    },
+    {
+      "path": "src/var_store.rs",
+      "sha": "9a0d97078643ce3ab7995c396176370ca301ba28",
+      "size": 6217
+    }
+  ]
+}

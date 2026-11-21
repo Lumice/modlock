@@ -1,0 +1,95 @@
+{
+  "local-config": {
+    "version": 33,
+    "state": {
+      "activeProfileId": "default",
+      "localMods": [
+        {
+          "id": "mod_active",
+          "remoteId": "123",
+          "name": "Ivy — Täht 🌿\nSecond line",
+          "author": "Synthetic Author",
+          "category": "Model Replacement",
+          "status": "installed",
+          "hero": "Haze",
+          "detectedHero": "Vindicta",
+          "heroOverride": "Ivy",
+          "installOrder": 0,
+          "installedVpks": [
+            "pak01_dir.vpk"
+          ],
+          "missingVpks": [
+            "lost.vpk"
+          ],
+          "description": "SYNTHETIC_SECRET_DO_NOT_EXPOSE"
+        },
+        {
+          "id": "mod_disabled",
+          "remoteId": "456",
+          "status": "installed"
+        },
+        {
+          "id": "mod_transient",
+          "remoteId": "789",
+          "name": "Transfer",
+          "status": "installing"
+        },
+        {
+          "id": "mod_future",
+          "remoteId": "999",
+          "name": "Future",
+          "status": "future-status",
+          "hero": "Bebop"
+        }
+      ],
+      "profiles": {
+        "default": {
+          "id": "default",
+          "name": "Default Profile",
+          "mods": [
+            {
+              "id": "stale",
+              "remoteId": "111",
+              "name": "Stale active snapshot",
+              "status": "downloaded"
+            }
+          ],
+          "enabledMods": {
+            "123": {
+              "remoteId": "123",
+              "enabled": true
+            },
+            "456": {
+              "remoteId": "456",
+              "enabled": false
+            }
+          }
+        },
+        "other": {
+          "id": "other",
+          "name": "Second Profile",
+          "mods": [
+            {
+              "id": "inactive",
+              "remoteId": "222",
+              "name": "Inactive",
+              "status": "downloaded",
+              "detectedHero": "Wraith"
+            }
+          ],
+          "enabledMods": {
+            "222": {
+              "remoteId": "222",
+              "enabled": true
+            }
+          }
+        }
+      },
+      "token": "SYNTHETIC_SECRET_DO_NOT_EXPOSE",
+      "account": {
+        "private": "SYNTHETIC_SECRET_DO_NOT_EXPOSE"
+      }
+    }
+  },
+  "private-root": "SYNTHETIC_SECRET_DO_NOT_EXPOSE"
+}

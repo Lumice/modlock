@@ -1,0 +1,20 @@
+# Software-only, path-vendored manifest adaptation; see Cargo.toml.upstream and ../metadata-sha256/MANIFEST-ADAPTATIONS.md.
+[package]
+name = "block-buffer"
+version = "0.10.4"
+authors = ["RustCrypto Developers"]
+license = "MIT OR Apache-2.0"
+description = "Buffer type for block processing of data"
+documentation = "https://docs.rs/block-buffer"
+repository = "https://github.com/RustCrypto/utils"
+keywords = ["block", "buffer"]
+categories = ["cryptography", "no-std"]
+edition = "2018"
+readme = "README.md"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+generic-array = { path = "../generic-array", version = "=0.14.9" }

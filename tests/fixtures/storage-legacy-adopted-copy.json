@@ -1,0 +1,6 @@
+{
+  "kind": "storageMove",
+  "version": 1,
+  "copyDirectory": {"path": null, "identity": null},
+  "files": [{"copyIntent": true, "copyIdentity": {"device": 0, "inode": 0}, "copied": false}]
+}

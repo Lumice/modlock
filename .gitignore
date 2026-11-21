@@ -1,0 +1,11 @@
+/build/
+/captures/
+/.qmlls.ini
+
+
+/backend/target/
+/.superpowers/
+/.worktrees/
+/target/
+/backend/vendor/json/Cargo.lock
+__pycache__/

@@ -1,0 +1,28 @@
+# Software-only, path-vendored manifest adaptation; see Cargo.toml.upstream and ../metadata-sha256/MANIFEST-ADAPTATIONS.md.
+[package]
+name = "crypto-common"
+description = "Common cryptographic traits"
+version = "0.1.6"
+authors = ["RustCrypto Developers"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+edition = "2018"
+documentation = "https://docs.rs/crypto-common"
+repository = "https://github.com/RustCrypto/traits"
+keywords = ["crypto", "traits"]
+categories = ["cryptography", "no-std"]
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+generic-array = { path = "../generic-array", version = "=0.14.9", features = ["more_lengths"] }
+typenum = { path = "../typenum", version = "=1.19.0" }
+
+[features]
+std = []
+
+# Recognize unchanged upstream cfgs without exposing removed optional APIs.
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(feature, values("rand_core"))'] }

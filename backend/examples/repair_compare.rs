@@ -1,0 +1,7 @@
+//! Opt-in read-only inputs; all output must be an explicitly supplied fixture path.
+fn main(){
+ let args:Vec<_>=std::env::args().collect();let input:serde_json::Value=serde_json::from_slice(&std::fs::read(&args[1]).unwrap()).unwrap();let rows=input.as_array().unwrap();let inputs=rows.iter().map(|r|(r["modId"].as_str().unwrap().to_owned(),r["vpks"].as_array().unwrap().iter().map(|p|p.as_str().unwrap().into()).collect())).collect();
+ let enabled=rows.iter().filter(|r|r["repair"]==true).map(|r|r["modId"].as_str().unwrap().to_owned()).collect();let out=std::path::Path::new(&args[3]);let fixture=out.ancestors().find(|p|p.join(".deadlock-review-fixture").is_file()).expect("output must be inside a marked review fixture");assert!(out.starts_with(fixture.join("game")));
+ let report=health_engine::repair(std::path::Path::new(&args[2]),inputs,enabled,out,&out.with_extension("resources")).unwrap();
+ let ours=health_engine::VpkArchive::open(out).unwrap();let upstream=health_engine::VpkArchive::open(std::path::Path::new(&args[4])).unwrap();let oe:std::collections::BTreeSet<_>=ours.list_entries().into_iter().collect();let ue:std::collections::BTreeSet<_>=upstream.list_entries().into_iter().collect();let different:Vec<_>=oe.intersection(&ue).filter(|p|ours.extract_entry(p).unwrap()!=upstream.extract_entry(p).unwrap()).collect();println!("{}",serde_json::json!({"ours":oe,"upstream":ue,"differentBytes":different,"report":report}));
+}

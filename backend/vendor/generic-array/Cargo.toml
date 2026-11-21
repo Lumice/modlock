@@ -1,0 +1,37 @@
+# Software-only, path-vendored manifest adaptation; see Cargo.toml.upstream and ../metadata-sha256/MANIFEST-ADAPTATIONS.md.
+[package]
+
+name = "generic-array"
+version = "0.14.9"
+authors = ["Bartłomiej Kamiński <fizyk20@gmail.com>", "Aaron Trent <novacrazy@gmail.com>"]
+
+description = "Generic types implementing functionality of arrays"
+readme = "README.md"
+
+license = "MIT"
+
+documentation = "http://fizyk20.github.io/generic-array/generic_array/"
+repository = "https://github.com/fizyk20/generic-array.git"
+
+keywords = ["generic", "array"]
+categories = ["data-structures", "no-std"]
+
+
+publish = false
+build = "build.rs"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+typenum = { path = "../typenum", version = "=1.19.0" }
+
+[build-dependencies]
+version_check = { path = "../version_check", version = "=0.9.5" }
+
+[features]
+more_lengths = []
+
+# Recognize unchanged upstream cfgs without exposing removed optional APIs.
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(feature, values("serde", "zeroize"))', 'cfg(relaxed_coherence)'] }

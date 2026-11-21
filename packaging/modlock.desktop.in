@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Modlock
+GenericName=Mod manager
+Comment=a Deadlock mod manager for Linux
+Exec=@BINARY@ %u
+Icon=modlock
+Terminal=false
+Categories=Game;Utility;
+Keywords=deadlock;mods;gamebanana;vpk;
+StartupWMClass=modlock
+MimeType=x-scheme-handler/dlmm;x-scheme-handler/deadlock-mod-manager;x-scheme-handler/deadlock-modmanager;

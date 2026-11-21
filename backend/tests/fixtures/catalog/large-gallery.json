@@ -1,0 +1,170 @@
+{
+  "_idRow": 900000001,
+  "_sModelName": "Mod",
+  "_sProfileUrl": "https://gamebanana.com/mods/900000001",
+  "_aGame": {
+    "_idRow": 20948
+  },
+  "_aPreviewMedia": {
+    "_aImages": [
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-01.jpg",
+        "_sFile530": "panel-01-thumbnail.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-02.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-03.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-04.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-05.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-06.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-07.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-08.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-09.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-10.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-11.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-12.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-13.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-14.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-15.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-16.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-17.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-18.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-19.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-20.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-21.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-22.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-23.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-24.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-25.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-26.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-27.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-28.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-29.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-30.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-31.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-32.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-33.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-34.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-35.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-36.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-37.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-38.jpg"
+      },
+      {
+        "_sBaseUrl": "https://example.invalid/modlock/gallery",
+        "_sFile": "panel-39.jpg"
+      }
+    ]
+  },
+  "_sName": "Fixture preview gallery"
+}

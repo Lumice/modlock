@@ -1,0 +1,66 @@
+[
+  {
+    "name": "sha2",
+    "version": "0.10.9",
+    "repository": "https://github.com/RustCrypto/hashes",
+    "commit": "82c36a428f8d6f05f3bfccdedb243e9d1f85359d",
+    "path": "sha2/",
+    "license": "MIT OR Apache-2.0"
+  },
+  {
+    "name": "digest",
+    "version": "0.10.7",
+    "repository": "https://github.com/RustCrypto/traits",
+    "commit": "344389411fd9718a0742435152e933a9e71461ee",
+    "path": "digest/",
+    "license": "MIT OR Apache-2.0"
+  },
+  {
+    "name": "crypto-common",
+    "version": "0.1.6",
+    "repository": "https://github.com/RustCrypto/traits",
+    "commit": "25614e2d5a4ccbb0cfde23367a93c8bcdbfe421a",
+    "path": "crypto-common/",
+    "license": "MIT OR Apache-2.0"
+  },
+  {
+    "name": "block-buffer",
+    "version": "0.10.4",
+    "repository": "https://github.com/RustCrypto/utils",
+    "commit": "6d35952d3d3b124bc1049ad6fb406b42b1ce4bfe",
+    "path": "block-buffer/",
+    "license": "MIT OR Apache-2.0"
+  },
+  {
+    "name": "generic-array",
+    "version": "0.14.9",
+    "repository": "https://github.com/fizyk20/generic-array",
+    "commit": "02af3fea451ef810dd3bee78aa73ad46453b88a6",
+    "path": ".",
+    "license": "MIT"
+  },
+  {
+    "name": "typenum",
+    "version": "1.19.0",
+    "repository": "https://github.com/paholg/typenum",
+    "commit": "65d17389fad2919dab23c1e62cdf1226615c72bd",
+    "path": ".",
+    "license": "MIT OR Apache-2.0"
+  },
+  {
+    "name": "cfg-if",
+    "version": "1.0.4",
+    "repository": "https://github.com/rust-lang/cfg-if",
+    "commit": "3510ca6abea34cbbc702509a4e50ea9709925eda",
+    "path": ".",
+    "license": "MIT OR Apache-2.0"
+  },
+  {
+    "name": "version_check",
+    "version": "0.9.5",
+    "repository": "https://github.com/SergioBenitez/version_check",
+    "commit": "d77ef9f27cc336719b2d839d09ee6635dd22f758",
+    "path": ".",
+    "license": "MIT OR Apache-2.0"
+  }
+]
