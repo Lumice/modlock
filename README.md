@@ -18,7 +18,7 @@ Modlock is a native Linux mod manager for Deadlock. Browse GameBanana, import lo
   <img alt="Modlock Browse showing searchable sample mods and download actions" src="docs/screenshots/browse.png">
 </picture>
 
-The screenshots use fictional listings and Modlock’s own thumbnail placeholders. View the dark versions of [Home](docs/screenshots/home-dark.png) and [Browse](docs/screenshots/browse-dark.png).
+The screenshots use fictional listings and Modlock’s own thumbnail placeholders. View the light versions of [Home](docs/screenshots/home.png) and [Browse](docs/screenshots/browse.png).
 
 ## Run Modlock
 
